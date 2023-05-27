@@ -32,4 +32,12 @@ wget https://raw.githubusercontent.com/grafana/loki/v2.8.0/clients/cmd/promtail/
 
 #Run the Loki docker container
 docker run -d --name loki -v $(pwd):/mnt/config -p 3100:3100 grafana/loki:2.8.0 --config.file=/mnt/config/loki-config.yaml
+#now go and access with publicip:3100/
+#3100/ready
+#3100/metrics  #now you will be able to see the logs
+
+#Run the Promtail docker container
+docker run -d --name promtail -v $(pwd):/mnt/config -v /var/log:/var/log --link loki grafana/promtail:2.8.0 --config.file=/mnt/config/promtail-config.yaml
+
+
 
